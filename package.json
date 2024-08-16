@@ -6,21 +6,39 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "start:bot": "ts-node ./test-bot/bot-instance.ts",
+    "lint": "next lint",
+    "format": "npx prettier ./src --write",
+    "format:check": "npx prettier ./src --check"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.31.0",
+    "@tanstack/react-query-devtools": "^5.31.0",
+    "@ton/ton": "^13.11.2",
+    "@tonconnect/ui-react": "^2.0.5",
+    "@types/telegram-web-app": "^7.2.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "next": "14.2.2",
+    "next-nprogress-bar": "^2.3.11",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-markdown": "^9.0.1",
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@neodx/svg": "^0.7.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "daisyui": "^4.10.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.2",
+    "postcss": "^8",
+    "prettier": "3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
