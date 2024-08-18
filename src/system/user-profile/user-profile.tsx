@@ -19,7 +19,6 @@ export const UserProfile = () => {
   };
   return (
     <React.Fragment>
-      <BackButton onClick={routeBack} />
       <div className="flex flex-col justify-center items-center flex-wrap mt-6 gap-4">
         <div className="avatar">
           <div className="w-40 rounded-full">
@@ -27,7 +26,7 @@ export const UserProfile = () => {
           </div>
         </div>
         <div className="flex-grow text-center">
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold" suppressHydrationWarning>
             {`${WebApp?.initDataUnsafe.user?.first_name} ${WebApp?.initDataUnsafe.user?.last_name}`}
           </h1>
           <p className="text-telegram-subtitle-text py-2" suppressHydrationWarning>
@@ -41,6 +40,7 @@ export const UserProfile = () => {
         <hr className="my-2 bg-telegram-section-separator" />
         <NoPassedQuizzesEmptyState />
       </div>
+      <BackButton onClick={routeBack} />
     </React.Fragment>
   );
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { useHapticFeedback, useTgWebApp } from '@/telegram-web-app/hooks';
+import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import Link from 'next/link';
 import React from 'react';
 
@@ -8,7 +8,6 @@ import { Icon } from '@/shared/components';
 
 export const Header = () => {
   const { impactOccurred } = useHapticFeedback();
-  const WebApp = useTgWebApp();
 
   return (
     <div className="navbar shadow bg-base-100">
@@ -28,7 +27,7 @@ export const Header = () => {
       </div>
       <div className="navbar-end">
         <Link
-          href={`/profile/${WebApp?.initDataUnsafe.user?.id}`}
+          href="/profile"
           onClick={() => impactOccurred('medium')}
           className="btn btn-ghost btn-circle"
         >
