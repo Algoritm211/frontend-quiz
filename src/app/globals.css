@@ -19,6 +19,13 @@
     --telegram-button-color: var(--tg-theme-button-color, #3390ec);
     --telegram-button-text-color: var(--tg-theme-button-text-color, #ffffff);
     --telegram-secondary-bg-color: var(--tg-theme-secondary-bg-color, #f4f4f5);
+    --telegram-header-bg-color: var(--tg-theme-header-bg-color, #000000);
+    --telegram-accent-text-color: var(--tg-theme-accent-text-color, #000000);
+    --telegram-section-bg-color: var(--tg-theme-section-bg-color, #000000);
+    --telegram-section-header-text-color: var(--tg-theme-section-header-text-color, #000000);
+    --telegram-section-separator-color: var(--tg-theme-section-separator-color, #000000);
+    --telegram-subtitle-text-color: var(--tg-theme-subtitle-text-color, #000000);
+    --telegram-destructive-text-color: var(--tg-theme-destructive-text-color, #000000);
   }
 
   html {

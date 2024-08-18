@@ -1,13 +1,13 @@
 'use client';
 
+import { QuizList } from '@/system';
 import { useTgWebApp } from '@/telegram-web-app';
 
-export default function Home() {
+export default function MainPage() {
   const WebApp = useTgWebApp();
   return (
     <main>
-      <h1>[QUIZ_LIST]</h1>
-      {/*<pre>{JSON.stringify(WebApp?.initDataUnsafe, null, 2)}</pre>*/}
+      <QuizList />
     </main>
   );
 }

@@ -3,14 +3,16 @@ import React, { PropsWithChildren } from 'react';
 
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
+import { ScrollToTop } from './scroll-to-top/scroll-to-top';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="drawer">
       <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content min-h-screen flex flex-col">
+      <div className="drawer-content min-h-screen overscroll-none flex flex-col">
         <Header />
-        <main className="container my-5 flex-grow mx-auto">{children}</main>
+        <main className="container my-5 flex-grow mx-auto px-1">{children}</main>
+        <ScrollToTop />
         <Footer />
       </div>
       <div className="drawer-side">
