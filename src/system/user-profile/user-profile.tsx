@@ -6,6 +6,8 @@ import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
+import { NoPassedQuizzesEmptyState } from '@/system/user-profile/components/no-passed-quizzes-empty-state/no-passed-quizzes-empty-state';
+
 export const UserProfile = () => {
   const WebApp = useTgWebApp();
   const router = useRouter();
@@ -32,6 +34,12 @@ export const UserProfile = () => {
             Joined {new Date().toLocaleDateString()}
           </p>
         </div>
+      </div>
+
+      <div className="px-2 mt-2">
+        <div className="font-bold">Passed quizes</div>
+        <hr className="my-2 bg-telegram-section-separator" />
+        <NoPassedQuizzesEmptyState />
       </div>
     </React.Fragment>
   );
