@@ -37,7 +37,7 @@ export const UserProfile = () => {
       </div>
 
       <div className="px-2 mt-2">
-        <div className="font-bold">Passed quizes</div>
+        <div className="font-bold">Passed quizzes</div>
         <hr className="my-2 bg-telegram-section-separator" />
         <NoPassedQuizzesEmptyState />
       </div>
