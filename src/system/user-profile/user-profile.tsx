@@ -6,7 +6,7 @@ import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
-import { NoPassedQuizzesEmptyState } from '@/system/user-profile/components/no-passed-quizzes-empty-state/no-passed-quizzes-empty-state';
+import {NoPassedQuizzesEmptyState, PassedQuizCard} from './components';
 
 export const UserProfile = () => {
   const WebApp = useTgWebApp();
@@ -38,7 +38,12 @@ export const UserProfile = () => {
       <div className="px-2 mt-2">
         <div className="font-bold">Passed quizzes</div>
         <hr className="my-2 bg-telegram-section-separator" />
-        <NoPassedQuizzesEmptyState />
+        {/*<NoPassedQuizzesEmptyState />*/}
+        <div className='flex flex-col gap-4'>
+          <PassedQuizCard />
+          <PassedQuizCard />
+        </div>
+
       </div>
       <BackButton onClick={routeBack} />
     </React.Fragment>
