@@ -1,3 +1,6 @@
+'use client';
+
+import { useGetQuizzes } from '@/api-client';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
@@ -5,13 +8,16 @@ import { QuizCard } from '@/system/quiz-list/components';
 
 export const QuizList = () => {
   const router = useRouter();
+  const { data: quizzes } = useGetQuizzes();
 
   return (
     <div>
-      <h1 className="text-3xl mx-2 font-bold mb-1">Available quizes</h1>
+      <h1 className="text-3xl mx-2 font-bold mb-1">Available quizzes</h1>
       <hr className="my-2 bg-telegram-section-separator" />
       <div className="flex flex-col gap-2">
-        <QuizCard onCardClick={() => router.push('/quiz/some_id')} />
+        {quizzes?.map((quiz) => (
+          <QuizCard key={quiz.id} onCardClick={() => router.push(`/quiz/${quiz.id}`)} quiz={quiz} />
+        ))}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@
 // extracting this part out into it's own file with 'use client' on top
 import { useTgWebApp } from '@/telegram-web-app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import React, { PropsWithChildren, useEffect } from 'react';
 
@@ -56,6 +57,7 @@ export default function Providers({ children }: PropsWithChildren) {
         color="var(--tg-theme-link-color)"
         options={{ showSpinner: true }}
       />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

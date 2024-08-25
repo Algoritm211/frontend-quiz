@@ -20,14 +20,16 @@ export const customInstance = async <T>({
   headers?: HeadersInit | undefined;
   signal?: AbortSignal | undefined;
 }): Promise<T> => {
-  const response = await fetch(`${baseURL}${url}?` + new URLSearchParams(params).toString(), {
+  const response = await fetch(`${baseURL}${url}?` + `${new URLSearchParams(params).toString()}`, {
     method,
     ...(data ? { body: JSON.stringify(data) } : {}),
     headers,
     signal,
   });
 
-  return response.json();
+  const json = await response.json();
+
+  return json;
 };
 
 export default customInstance;

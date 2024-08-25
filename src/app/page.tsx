@@ -1,11 +1,18 @@
-'use client';
-
+import { getGetQuizzesQueryKey, getQuizzes } from '@/api-client';
 import { QuizList } from '@/system';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-export default function MainPage() {
+export default async function MainPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: getGetQuizzesQueryKey(),
+    queryFn: () => getQuizzes(),
+  });
+
   return (
-    <main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <QuizList />
-    </main>
+    </HydrationBoundary>
   );
 }

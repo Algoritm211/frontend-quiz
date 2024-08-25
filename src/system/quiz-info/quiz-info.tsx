@@ -24,7 +24,11 @@ export const QuizInfo = () => {
       <h1 className="text-2xl font-bold">JS code challenge</h1>
       <div className="badge badge-success text-base-100">50% off for full pack</div>
       <figure className="my-4">
-        <img src="/quizes/js-quiz.png" className="w-100 object-cover rounded-xl" alt="quiz image" />
+        <img
+          src="/quizzes/js-quiz-1.png"
+          className="w-100 object-cover rounded-xl"
+          alt="quiz image"
+        />
       </figure>
       <h2 className="text-xl font-bold">Description</h2>
       <p>
