@@ -40,8 +40,8 @@ export const UserProfile = () => {
         <hr className="my-2 bg-telegram-section-separator" />
         {/*<NoPassedQuizzesEmptyState />*/}
         <div className="flex flex-col gap-4">
-          <PassedQuizCard title='JS code challenge' passRate={57} />
-          <PassedQuizCard title='TypeScript basics' passRate={100} />
+          <PassedQuizCard title="JS code challenge" passRate={57} />
+          <PassedQuizCard title="TypeScript basics" passRate={100} />
         </div>
       </div>
       <BackButton onClick={routeBack} />

@@ -33,7 +33,10 @@ export const PassedQuizCard: React.FC<Props> = ({ title, passRate }) => {
         hover:bg-telegram-button hover:opacity-90"
       >
         {isQuizPassed ? 'Redo' : 'Continue'}
-        <Icon name={isQuizPassed? "arrow-path-rounded-square" :"arrow-right"} className="w-6 h-6" />
+        <Icon
+          name={isQuizPassed ? 'arrow-path-rounded-square' : 'arrow-right'}
+          className="w-6 h-6"
+        />
       </button>
     </div>
   );

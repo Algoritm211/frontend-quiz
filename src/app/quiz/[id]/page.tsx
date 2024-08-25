@@ -1,10 +1,8 @@
+import { QuizInfo } from '@/system';
 import React from 'react';
-import {QuizInfo} from "@/system";
 
 const QuizInfoPage = () => {
-  return (
-    <QuizInfo />
-  );
+  return <QuizInfo />;
 };
 
 export default QuizInfoPage;

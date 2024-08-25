@@ -4,12 +4,9 @@ interface Props {
   onCardClick?: () => void;
 }
 
-export const QuizCard: React.FC<Props> = ({onCardClick}) => {
+export const QuizCard: React.FC<Props> = ({ onCardClick }) => {
   return (
-    <div
-      className="card card-compact bg-base-100 shadow-xl cursor-pointer"
-      onClick={onCardClick}
-    >
+    <div className="card card-compact bg-base-100 shadow-xl cursor-pointer" onClick={onCardClick}>
       <figure>
         <img src="/quizes/js-quiz.png" className="w-100 object-cover" alt="quiz image" />
       </figure>

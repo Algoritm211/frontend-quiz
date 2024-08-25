@@ -1,7 +1,7 @@
+import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
 import { QuizCard } from '@/system/quiz-list/components';
-import {useRouter} from "next-nprogress-bar";
 
 export const QuizList = () => {
   const router = useRouter();
