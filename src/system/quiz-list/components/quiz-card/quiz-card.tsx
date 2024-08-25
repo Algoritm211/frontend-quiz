@@ -1,10 +1,17 @@
 import React from 'react';
 
-export const QuizCard = () => {
+interface Props {
+  onCardClick?: () => void;
+}
+
+export const QuizCard: React.FC<Props> = ({onCardClick}) => {
   return (
-    <div className="card card-compact bg-base-100 shadow-xl">
+    <div
+      className="card card-compact bg-base-100 shadow-xl cursor-pointer"
+      onClick={onCardClick}
+    >
       <figure>
-        <img src="/quizes/js-quiz.png" className="w-100 object-cover" alt="Shoes" />
+        <img src="/quizes/js-quiz.png" className="w-100 object-cover" alt="quiz image" />
       </figure>
       <div className="card-body">
         <h2 className="card-title text-telegram-text">
