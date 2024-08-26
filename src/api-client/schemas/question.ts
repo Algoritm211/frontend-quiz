@@ -12,6 +12,8 @@ export interface Question {
   _id: string;
   /** An optional code snippet related to the question */
   codeSnippet?: string;
+  /** An explanation of why a specific option is correct */
+  explanation?: string;
   /** A list of answer options for the question */
   options: AnswerOption[];
   /** The text of the question */

@@ -230,6 +230,11 @@ components:
           description: A list of answer options for the question
           items:
             $ref: '#/components/schemas/AnswerOption'
+        explanation:
+          type: string
+          x-stoplight:
+            id: a8gnewfm4l9mt
+          description: An explanation of why a specific option is correct
     AnswerOption:
       type: object
       required:
