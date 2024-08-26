@@ -7,7 +7,7 @@
 
 export interface AnswerOption {
   /** The unique identifier of the answer option */
-  id: string;
+  _id: string;
   /** Indicates whether this option is the correct answer. This should only be revealed on the frontend after the user answers. */
   isCorrect: boolean;
   /** The text of the answer option */

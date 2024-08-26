@@ -8,10 +8,10 @@
 import type { AnswerOption } from './answerOption';
 
 export interface Question {
+  /** The unique identifier of the question */
+  _id: string;
   /** An optional code snippet related to the question */
   codeSnippet?: string;
-  /** The unique identifier of the question */
-  id: string;
   /** A list of answer options for the question */
   options: AnswerOption[];
   /** The text of the question */

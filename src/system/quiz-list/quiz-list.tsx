@@ -16,7 +16,11 @@ export const QuizList = () => {
       <hr className="my-2 bg-telegram-section-separator" />
       <div className="flex flex-col gap-2">
         {quizzes?.map((quiz) => (
-          <QuizCard key={quiz.id} onCardClick={() => router.push(`/quiz/${quiz.id}`)} quiz={quiz} />
+          <QuizCard
+            key={quiz._id}
+            onCardClick={() => router.push(`/quiz/${quiz._id}`)}
+            quiz={quiz}
+          />
         ))}
       </div>
     </div>

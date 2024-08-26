@@ -4,10 +4,8 @@ info:
   description: |
     API for a Telegram mini-app that allows users to take programming quizzes, view results, and access premium quiz content.
   version: 1.0.0
-
 servers:
-  - url: https://api.telegram-quiz-app.com/v1
-
+  - url: 'https://api.telegram-quiz-app.com/v1'
 paths:
   /quizzes:
     get:
@@ -24,8 +22,7 @@ paths:
                   $ref: '#/components/schemas/Quiz'
         '500':
           description: Server error
-
-  /quizzes/{quizId}:
+  '/quizzes/{quizId}':
     get:
       summary: Retrieve details of a specific quiz
       operationId: getQuizById
@@ -47,8 +44,7 @@ paths:
           description: Quiz not found
         '500':
           description: Server error
-
-  /quizzes/{quizId}/questions:
+  '/quizzes/{quizId}/questions':
     get:
       summary: Retrieve questions for a specific quiz
       operationId: getQuestionsByQuizId
@@ -72,8 +68,7 @@ paths:
           description: Quiz not found
         '500':
           description: Server error
-
-  /quizzes/{quizId}/questions/{questionId}/answer:
+  '/quizzes/{quizId}/questions/{questionId}/answer':
     post:
       summary: Submit an answer for a specific question
       operationId: submitAnswer
@@ -98,7 +93,7 @@ paths:
               $ref: '#/components/schemas/AnswerSubmission'
       responses:
         '200':
-          description: The result of the answer submission, indicating correctness and providing an explanation.
+          description: 'The result of the answer submission, indicating correctness and providing an explanation.'
           content:
             application/json:
               schema:
@@ -109,8 +104,7 @@ paths:
           description: Quiz or question not found
         '500':
           description: Server error
-
-  /users/{userId}/profile:
+  '/users/{userId}/profile':
     get:
       summary: Retrieve user profile information
       operationId: getUserProfile
@@ -123,7 +117,7 @@ paths:
             type: string
       responses:
         '200':
-          description: User profile information, including completed quizzes and completion percentage.
+          description: 'User profile information, including completed quizzes and completion percentage.'
           content:
             application/json:
               schema:
@@ -132,8 +126,7 @@ paths:
           description: User not found
         '500':
           description: Server error
-
-  /users/{userId}/results:
+  '/users/{userId}/results':
     get:
       summary: Retrieve the user's quiz results
       operationId: getUserResults
@@ -157,20 +150,21 @@ paths:
           description: User not found
         '500':
           description: Server error
-
 components:
   schemas:
     Quiz:
       type: object
       required:
-        - id
+        - _id
         - title
         - description
         - isPaid
       properties:
-        id:
+        _id:
           type: string
           description: The unique identifier of the quiz
+          x-stoplight:
+            id: f3b658rdd0i9f
         title:
           type: string
           description: The title of the quiz
@@ -183,19 +177,21 @@ components:
         isPaid:
           type: boolean
           description: Indicates whether the quiz contains premium (paid) content
-
+      description: ''
     QuizDetails:
       type: object
       required:
-        - id
+        - _id
         - title
         - description
         - isPaid
         - totalQuestions
       properties:
-        id:
+        _id:
           type: string
           description: The unique identifier of the quiz
+          x-stoplight:
+            id: ub26z32xh5bya
         title:
           type: string
           description: The title of the quiz
@@ -211,17 +207,18 @@ components:
         totalQuestions:
           type: integer
           description: The total number of questions in the quiz
-
     Question:
       type: object
       required:
-        - id
+        - _id
         - text
         - options
       properties:
-        id:
+        _id:
           type: string
           description: The unique identifier of the question
+          x-stoplight:
+            id: 3z03fuh06vwsq
         text:
           type: string
           description: The text of the question
@@ -233,24 +230,24 @@ components:
           description: A list of answer options for the question
           items:
             $ref: '#/components/schemas/AnswerOption'
-
     AnswerOption:
       type: object
       required:
-        - id
+        - _id
         - text
         - isCorrect
       properties:
-        id:
+        _id:
           type: string
           description: The unique identifier of the answer option
+          x-stoplight:
+            id: 1biz892zpwl9t
         text:
           type: string
           description: The text of the answer option
         isCorrect:
           type: boolean
           description: Indicates whether this option is the correct answer. This should only be revealed on the frontend after the user answers.
-
     AnswerSubmission:
       type: object
       required:
@@ -259,7 +256,6 @@ components:
         answerId:
           type: string
           description: The unique identifier of the selected answer option
-
     AnswerResult:
       type: object
       required:
@@ -272,7 +268,6 @@ components:
         explanation:
           type: string
           description: An explanation of why the answer is correct or incorrect
-
     UserProfile:
       type: object
       required:
@@ -291,7 +286,6 @@ components:
           description: A list of quizzes completed by the user
           items:
             $ref: '#/components/schemas/QuizResult'
-
     QuizResult:
       type: object
       required:

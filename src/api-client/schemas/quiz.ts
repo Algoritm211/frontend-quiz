@@ -6,10 +6,10 @@
  */
 
 export interface Quiz {
+  /** The unique identifier of the quiz */
+  _id: string;
   /** A brief description of the quiz */
   description: string;
-  /** The unique identifier of the quiz */
-  id: string;
   /** Indicates whether the quiz contains premium (paid) content */
   isPaid: boolean;
   /** URL to the logo image for the quiz */
