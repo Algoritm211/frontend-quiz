@@ -11,7 +11,7 @@ export const QuizCard: React.FC<Props> = ({ onCardClick, quiz }) => {
   return (
     <div className="card card-compact bg-base-100 shadow-xl cursor-pointer" onClick={onCardClick}>
       <figure>
-        <img src={logoUrl} className="w-100 object-cover" alt="quiz image" />
+        <img src={logoUrl} className="w-100 h-52 object-cover" alt="quiz image" />
       </figure>
       <div className="card-body">
         <h2 className="card-title text-telegram-text">

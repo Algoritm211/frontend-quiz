@@ -39,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuizDetails'
+                $ref: '#/components/schemas/Quiz'
         '404':
           description: Quiz not found
         '500':
@@ -177,7 +177,12 @@ components:
         isPaid:
           type: boolean
           description: Indicates whether the quiz contains premium (paid) content
-      description: ''
+        questions:
+          type: array
+          x-stoplight:
+            id: p41x101eqtvmz
+          items:
+            $ref: '#/components/schemas/Question'
     QuizDetails:
       type: object
       required:

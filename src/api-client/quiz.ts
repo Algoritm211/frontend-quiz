@@ -22,7 +22,6 @@ import type {
   AnswerSubmission,
   Question,
   Quiz,
-  QuizDetails,
   QuizResult,
   UserProfile,
 } from './schemas';
@@ -82,7 +81,7 @@ export const useGetQuizzes = <
  * @summary Retrieve details of a specific quiz
  */
 export const getQuizById = (quizId: string) => {
-  return customInstance<QuizDetails>({ url: `/quizzes/${quizId}`, method: 'GET' });
+  return customInstance<Quiz>({ url: `/quizzes/${quizId}`, method: 'GET' });
 };
 
 export const getGetQuizByIdQueryKey = (quizId: string) => {
