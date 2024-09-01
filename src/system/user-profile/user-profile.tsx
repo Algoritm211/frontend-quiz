@@ -6,8 +6,10 @@ import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
-import { NoPassedQuizzesEmptyState, PassedQuizCard } from './components';
+import { PassedQuizCard } from './components';
 
+// TODO fix hydration warning
+// TODO decide what image to display on user's profile page
 export const UserProfile = () => {
   const WebApp = useTgWebApp();
   const router = useRouter();
@@ -17,6 +19,9 @@ export const UserProfile = () => {
     impactOccurred('medium');
     void router.back();
   };
+  if (!WebApp) {
+    return <div>Loading...</div>;
+  }
   return (
     <React.Fragment>
       <div className="flex flex-col justify-center items-center flex-wrap mt-6 gap-4">
@@ -38,7 +43,6 @@ export const UserProfile = () => {
       <div className="px-2 mt-2">
         <h2 className="font-bold">Passed quizzes</h2>
         <hr className="my-2 bg-telegram-section-separator" />
-        {/*<NoPassedQuizzesEmptyState />*/}
         <div className="flex flex-col gap-4">
           <PassedQuizCard title="JS code challenge" passRate={57} />
           <PassedQuizCard title="TypeScript basics" passRate={100} />

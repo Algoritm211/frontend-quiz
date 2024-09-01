@@ -1,15 +1,14 @@
 import React from 'react';
 
-export const QuestionCodeSnippet = () => {
+interface Props {
+  code: string;
+}
+
+export const QuestionCodeSnippet: React.FC<Props> = ({ code }) => {
   return (
     <div className="mb-6">
       <pre className="bg-neutral text-neutral-content p-4 rounded-md overflow-auto">
-        <code>
-          {`function test() {
-  console.log('Hello, World!');
-}
-test();`}
-        </code>
+        <code>{code}</code>
       </pre>
     </div>
   );

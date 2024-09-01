@@ -1,5 +1,5 @@
 import { getGetQuestionsByQuizIdQueryKey, getQuestionsByQuizId } from '@/api-client';
-import { Questionnaire } from '@/system';
+import { Questionnaire, QuizProvider } from '@/system';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';
 
@@ -14,7 +14,9 @@ const QuestionsPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Questionnaire />
+      <QuizProvider>
+        <Questionnaire />
+      </QuizProvider>
     </HydrationBoundary>
   );
 };
