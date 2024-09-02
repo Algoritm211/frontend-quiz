@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import Markdown from 'react-markdown';
+import remarkBreaks from 'remark-breaks';
+import remarkGfm from 'remark-gfm';
 
 import { Icon } from '@/shared/components';
 
@@ -24,9 +27,11 @@ export const QuestionExplanation: React.FC<Props> = ({ isAnswered, explanation }
             <Icon name="information-circle" className="w-5 h-5 text-blue-500 font-bold" />
             <h2 className="text-lg font-semibold">Explanation:</h2>
           </div>
-          <p className="mt-2">
-            {explanation || 'Unfortunately no explanation, contact us, we will fix that'}
-          </p>
+          <div className="mt-2 markdown-content">
+            <Markdown>
+              {explanation || 'Unfortunately no explanation, contact us, we will fix that'}
+            </Markdown>
+          </div>
         </div>
       )}
     </React.Fragment>

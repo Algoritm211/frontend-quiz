@@ -26,6 +26,9 @@
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
+    "rehype-highlight": "^7.0.0",
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.0",
     "telegraf": "^4.16.3"
   },
   "devDependencies": {
