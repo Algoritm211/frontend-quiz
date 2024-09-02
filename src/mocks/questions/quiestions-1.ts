@@ -52,7 +52,7 @@ console.log(freddie.colorChange('orange'));
       { _id: 'questions-1-id-2-opt-id-1', text: 'orange', isCorrect: false },
       { _id: 'questions-1-id-2-opt-id-2', text: 'purple', isCorrect: false },
       { _id: 'questions-1-id-2-opt-id-3', text: 'green', isCorrect: false },
-      { _id: 'questions-1-id-2-opt-id-3', text: 'TypeError', isCorrect: true },
+      { _id: 'questions-1-id-2-opt-id-4', text: 'TypeError', isCorrect: true },
     ],
     explanation: `The \`colorChange\` function is static. Static methods are designed to live only on the constructor in which they are created, and cannot be passed down to any children or called upon class instances. Since \`freddie\` is an instance of class Chameleon, the function cannot be called upon it. A \`TypeError\` is thrown.
     `,

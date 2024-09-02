@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
-import remarkBreaks from 'remark-breaks';
-import remarkGfm from 'remark-gfm';
 
 import { Icon } from '@/shared/components';
 

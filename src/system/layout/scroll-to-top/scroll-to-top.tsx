@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import React, { useState, useEffect } from 'react';
 
 import { Icon } from '@/shared/components';
+import { scrollToTop } from '@/shared/utils';
 
 export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,13 +15,6 @@ export const ScrollToTop = () => {
     } else {
       setIsVisible(false);
     }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   };
 
   useEffect(() => {
