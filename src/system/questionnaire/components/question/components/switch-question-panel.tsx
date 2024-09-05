@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Icon, tgActiveButton, tgOutlineButton} from '@/shared/components';
+import { Icon, tgActiveButton, tgOutlineButton } from '@/shared/components';
 
 interface Props {
   goToNextQuestion: () => void;
