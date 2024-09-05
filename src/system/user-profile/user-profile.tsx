@@ -1,17 +1,17 @@
 'use client';
 
-import { useTgWebApp } from '@/telegram-web-app';
+import { useGetUserProfile } from '@/api-client';
 import { BackButton } from '@/telegram-web-app/components';
 import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import { useRouter } from 'next-nprogress-bar';
+import { useParams } from 'next/navigation';
 import React from 'react';
 
 import { PassedQuizCard } from './components';
 
-// TODO fix hydration warning
-// TODO decide what image to display on user's profile page
 export const UserProfile = () => {
-  const WebApp = useTgWebApp();
+  const { id: userId } = useParams<{ id: string }>();
+  const { data: userProfile } = useGetUserProfile(userId);
   const router = useRouter();
   const { impactOccurred } = useHapticFeedback();
 
@@ -19,9 +19,21 @@ export const UserProfile = () => {
     impactOccurred('medium');
     void router.back();
   };
-  if (!WebApp) {
+
+  const proceedQuiz = (quizId: string) => {
+    impactOccurred('medium');
+    router.push(`/quiz/${quizId}/questions`);
+  };
+
+  const redoQuiz = (quizId: string) => {
+    impactOccurred('medium');
+    router.push(`/quiz/${quizId}`);
+  };
+
+  if (!userProfile) {
     return <div>Loading...</div>;
   }
+
   return (
     <React.Fragment>
       <div className="flex flex-col justify-center items-center flex-wrap mt-6 gap-4">
@@ -32,10 +44,10 @@ export const UserProfile = () => {
         </div>
         <div className="flex-grow text-center">
           <h1 className="text-3xl font-bold" suppressHydrationWarning>
-            {`${WebApp?.initDataUnsafe.user?.first_name} ${WebApp?.initDataUnsafe.user?.last_name}`}
+            {userProfile.name}
           </h1>
           <p className="text-telegram-subtitle-text py-2" suppressHydrationWarning>
-            Joined {new Date().toLocaleDateString()}
+            Joined {new Date(userProfile.joinedDate).toLocaleDateString()}
           </p>
         </div>
       </div>
@@ -44,8 +56,20 @@ export const UserProfile = () => {
         <h2 className="font-bold">Passed quizzes</h2>
         <hr className="my-2 bg-telegram-section-separator" />
         <div className="flex flex-col gap-4">
-          <PassedQuizCard title="JS code challenge" passRate={57} />
-          <PassedQuizCard title="TypeScript basics" passRate={100} />
+          {userProfile.completedQuizzes.map((quiz) => {
+            return (
+              <PassedQuizCard
+                key={quiz._id}
+                title={quiz.title}
+                passRate={quiz.progressPercentage}
+                onQuizButtonClick={
+                  quiz.progressPercentage === 100
+                    ? () => redoQuiz(quiz._id)
+                    : () => proceedQuiz(quiz._id)
+                }
+              />
+            );
+          })}
         </div>
       </div>
       <BackButton onClick={routeBack} />

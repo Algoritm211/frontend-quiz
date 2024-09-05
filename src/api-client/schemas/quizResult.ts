@@ -6,10 +6,12 @@
  */
 
 export interface QuizResult {
-  /** The percentage of correct answers */
-  correctAnswersPercentage: number;
   /** The unique identifier of the quiz */
-  quizId: string;
+  _id: string;
+  isCompleted: boolean;
+  /** The percentage of correct answers */
+  progressPercentage: number;
+  title: string;
   /** The total number of questions in the quiz */
   totalQuestions: number;
 }

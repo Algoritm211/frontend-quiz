@@ -1,14 +1,15 @@
 import { clsx } from 'clsx';
 import React from 'react';
 
-import { Icon } from '@/shared/components';
+import { Icon, tgActiveButton } from '@/shared/components';
 
 interface Props {
   title: string;
   passRate: number;
+  onQuizButtonClick: () => void;
 }
 
-export const PassedQuizCard: React.FC<Props> = ({ title, passRate }) => {
+export const PassedQuizCard: React.FC<Props> = ({ title, passRate, onQuizButtonClick }) => {
   const isQuizPassed = passRate === 100;
   return (
     <div className="flex">
@@ -26,12 +27,7 @@ export const PassedQuizCard: React.FC<Props> = ({ title, passRate }) => {
           <span>{passRate}%</span>
         </div>
       </div>
-      <button
-        className="
-        btn bg-telegram-button text-telegram-button-text
-        hover:text-telegram-button-text w-32
-        hover:bg-telegram-button hover:opacity-90"
-      >
+      <button className={tgActiveButton({ className: 'w-32' })} onClick={onQuizButtonClick}>
         {isQuizPassed ? 'Redo' : 'Continue'}
         <Icon
           name={isQuizPassed ? 'arrow-path-rounded-square' : 'arrow-right'}

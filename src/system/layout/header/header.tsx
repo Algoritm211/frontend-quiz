@@ -27,7 +27,7 @@ export const Header = () => {
       </div>
       <div className="navbar-end">
         <Link
-          href="/profile"
+          href="/profile/some_id"
           onClick={() => impactOccurred('medium')}
           className="btn btn-ghost btn-circle"
         >

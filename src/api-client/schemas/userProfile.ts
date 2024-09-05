@@ -8,10 +8,11 @@
 import type { QuizResult } from './quizResult';
 
 export interface UserProfile {
+  /** The unique identifier of the user */
+  _id: string;
   /** A list of quizzes completed by the user */
   completedQuizzes: QuizResult[];
-  /** The unique identifier of the user */
-  id: string;
+  joinedDate: string;
   /** The name of the user */
   name: string;
 }

@@ -2,7 +2,11 @@ openapi: 3.0.0
 info:
   title: Telegram Mini App API
   description: |
-    API for a Telegram mini-app that allows users to take programming quizzes, view results, and access premium quiz content.
+    Column A | Column B | Column C
+    ---------|----------|---------
+     A1 | B1 | C1
+     A2 | B2 | C2
+     A3 | B3 | C3API for a Telegram mini-app that allows users to take programming quizzes, view results, and access premium quiz content.
   version: 1.0.0
 servers:
   - url: 'https://api.telegram-quiz-app.com/v1'
@@ -281,16 +285,23 @@ components:
     UserProfile:
       type: object
       required:
-        - id
+        - _id
         - name
+        - joinedDate
         - completedQuizzes
       properties:
-        id:
+        _id:
           type: string
           description: The unique identifier of the user
+          x-stoplight:
+            id: o5n5vvi0qqkfy
         name:
           type: string
           description: The name of the user
+        joinedDate:
+          type: string
+          x-stoplight:
+            id: gib9vy1c06l0j
         completedQuizzes:
           type: array
           description: A list of quizzes completed by the user
@@ -299,16 +310,31 @@ components:
     QuizResult:
       type: object
       required:
-        - quizId
-        - correctAnswersPercentage
+        - _id
+        - progressPercentage
         - totalQuestions
+        - isCompleted
+        - title
       properties:
-        quizId:
+        _id:
           type: string
           description: The unique identifier of the quiz
-        correctAnswersPercentage:
+          x-stoplight:
+            id: 7nbf1jw58modv
+        progressPercentage:
           type: number
           description: The percentage of correct answers
+          x-stoplight:
+            id: efyjx9rxgs4ph
         totalQuestions:
           type: integer
           description: The total number of questions in the quiz
+        isCompleted:
+          type: boolean
+          x-stoplight:
+            id: i3yvug2s5n0d6
+        title:
+          type: string
+          x-stoplight:
+            id: 5omj0vqr3rksu
+x-internal: false
