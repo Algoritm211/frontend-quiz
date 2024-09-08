@@ -2,7 +2,7 @@
 
 import { useGetQuestionsByQuizId } from '@/api-client';
 import { useParams } from 'next/navigation';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, PropsWithChildren } from 'react';
 
 import { mapToExtendedQuestions } from '@/system/questionnaire/quiz-context/util/map-to-extended-questions';
 import { ExtendedQuestion } from '@/system/questionnaire/types';
@@ -18,7 +18,7 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { id: quizId } = useParams<{ id: string }>();
   const [questions, setQuestions] = useState<ExtendedQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);

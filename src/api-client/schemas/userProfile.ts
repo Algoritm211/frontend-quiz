@@ -12,7 +12,9 @@ export interface UserProfile {
   _id: string;
   /** A list of quizzes completed by the user */
   completedQuizzes: QuizResult[];
+  /** The date and time the user joined */
   joinedDate: string;
   /** The name of the user */
   name: string;
+  telegramId: string;
 }

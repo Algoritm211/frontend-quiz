@@ -2,11 +2,7 @@ openapi: 3.0.0
 info:
   title: Telegram Mini App API
   description: |
-    Column A | Column B | Column C
-    ---------|----------|---------
-     A1 | B1 | C1
-     A2 | B2 | C2
-     A3 | B3 | C3API for a Telegram mini-app that allows users to take programming quizzes, view results, and access premium quiz content.
+    API for a Telegram mini-app that allows users to take programming quizzes, view results, and access premium quiz content.
   version: 1.0.0
 servers:
   - url: 'https://api.telegram-quiz-app.com/v1'
@@ -108,6 +104,27 @@ paths:
           description: Quiz or question not found
         '500':
           description: Server error
+  /users:
+    post:
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
   '/users/{userId}/profile':
     get:
       summary: Retrieve user profile information
@@ -167,8 +184,6 @@ components:
         _id:
           type: string
           description: The unique identifier of the quiz
-          x-stoplight:
-            id: f3b658rdd0i9f
         title:
           type: string
           description: The title of the quiz
@@ -183,8 +198,6 @@ components:
           description: Indicates whether the quiz contains premium (paid) content
         questions:
           type: array
-          x-stoplight:
-            id: p41x101eqtvmz
           items:
             $ref: '#/components/schemas/Question'
     QuizDetails:
@@ -199,8 +212,6 @@ components:
         _id:
           type: string
           description: The unique identifier of the quiz
-          x-stoplight:
-            id: ub26z32xh5bya
         title:
           type: string
           description: The title of the quiz
@@ -226,8 +237,6 @@ components:
         _id:
           type: string
           description: The unique identifier of the question
-          x-stoplight:
-            id: 3z03fuh06vwsq
         text:
           type: string
           description: The text of the question
@@ -241,8 +250,6 @@ components:
             $ref: '#/components/schemas/AnswerOption'
         explanation:
           type: string
-          x-stoplight:
-            id: a8gnewfm4l9mt
           description: An explanation of why a specific option is correct
     AnswerOption:
       type: object
@@ -254,8 +261,6 @@ components:
         _id:
           type: string
           description: The unique identifier of the answer option
-          x-stoplight:
-            id: 1biz892zpwl9t
         text:
           type: string
           description: The text of the answer option
@@ -282,10 +287,24 @@ components:
         explanation:
           type: string
           description: An explanation of why the answer is correct or incorrect
+    NewUser:
+      type: object
+      required:
+        - name
+        - telegramId
+      properties:
+        name:
+          type: string
+          description: The name of the user
+        telegramId:
+          type: string
+          x-stoplight:
+            id: 5haxb7b4ralyc
     UserProfile:
       type: object
       required:
         - _id
+        - telegramId
         - name
         - joinedDate
         - completedQuizzes
@@ -293,15 +312,17 @@ components:
         _id:
           type: string
           description: The unique identifier of the user
+        telegramId:
+          type: string
           x-stoplight:
-            id: o5n5vvi0qqkfy
+            id: bc36sk2ywnjjd
         name:
           type: string
           description: The name of the user
         joinedDate:
           type: string
-          x-stoplight:
-            id: gib9vy1c06l0j
+          format: date-time
+          description: The date and time the user joined
         completedQuizzes:
           type: array
           description: A list of quizzes completed by the user
@@ -319,22 +340,13 @@ components:
         _id:
           type: string
           description: The unique identifier of the quiz
-          x-stoplight:
-            id: 7nbf1jw58modv
         progressPercentage:
           type: number
           description: The percentage of correct answers
-          x-stoplight:
-            id: efyjx9rxgs4ph
         totalQuestions:
           type: integer
           description: The total number of questions in the quiz
         isCompleted:
           type: boolean
-          x-stoplight:
-            id: i3yvug2s5n0d6
         title:
           type: string
-          x-stoplight:
-            id: 5omj0vqr3rksu
-x-internal: false

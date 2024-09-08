@@ -2,7 +2,7 @@
 
 // We can not useState or useRef in a server component, which is why we are
 // extracting this part out into it's own file with 'use client' on top
-import { AuthChecker } from '@/auth';
+import { AuthSplashScreen, AuthProvider } from '@/auth';
 import { useTgWebApp } from '@/telegram-web-app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -52,15 +52,17 @@ export default function Providers({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthChecker>
-        {children}
-        <ProgressBar
-          height="2px"
-          color="var(--tg-theme-link-color)"
-          options={{ showSpinner: true }}
-        />
+      <AuthProvider>
+        <AuthSplashScreen>
+          {children}
+          <ProgressBar
+            height="2px"
+            color="var(--tg-theme-link-color)"
+            options={{ showSpinner: true }}
+          />
+        </AuthSplashScreen>
         <ReactQueryDevtools />
-      </AuthChecker>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

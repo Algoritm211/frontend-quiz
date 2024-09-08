@@ -20,6 +20,7 @@ import { customInstance } from './fetch-instance';
 import type {
   AnswerResult,
   AnswerSubmission,
+  NewUser,
   Question,
   Quiz,
   QuizResult,
@@ -267,6 +268,69 @@ export const useSubmitAnswer = <TError = void, TContext = unknown>(options?: {
   TContext
 > => {
   const mutationOptions = getSubmitAnswerMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+
+/**
+ * @summary Create a new user
+ */
+export const createUser = (newUser: NewUser) => {
+  return customInstance<UserProfile>({
+    url: `/users`,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: newUser,
+  });
+};
+
+export const getCreateUserMutationOptions = <TError = void, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createUser>>,
+    TError,
+    { data: NewUser },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createUser>>,
+  TError,
+  { data: NewUser },
+  TContext
+> => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUser>>, { data: NewUser }> = (
+    props
+  ) => {
+    const { data } = props ?? {};
+
+    return createUser(data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateUserMutationResult = NonNullable<Awaited<ReturnType<typeof createUser>>>;
+export type CreateUserMutationBody = NewUser;
+export type CreateUserMutationError = void;
+
+/**
+ * @summary Create a new user
+ */
+export const useCreateUser = <TError = void, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createUser>>,
+    TError,
+    { data: NewUser },
+    TContext
+  >;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createUser>>,
+  TError,
+  { data: NewUser },
+  TContext
+> => {
+  const mutationOptions = getCreateUserMutationOptions(options);
 
   return useMutation(mutationOptions);
 };

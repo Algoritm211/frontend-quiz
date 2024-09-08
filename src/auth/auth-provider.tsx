@@ -1,35 +1,65 @@
 'use client';
 
+import { useCreateUser, useGetUserProfile } from '@/api-client';
+import { UserProfile } from '@/api-client/schemas';
 import { useTgWebApp } from '@/telegram-web-app';
-import { useQuery } from '@tanstack/react-query';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+interface AuthContext {
+  loggedUserData: UserProfile | undefined | null;
+}
 
-const getUserData = async () => {
-  const response = await sleep(2000);
-  return { ok: true };
-};
+const AuthContext = createContext<AuthContext | undefined>(undefined);
 
-export const AuthChecker: React.FC<PropsWithChildren> = ({ children }) => {
+export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const webApp = useTgWebApp();
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['data'],
-    queryFn: getUserData,
-    enabled: false,
+  const telegramId = webApp?.initDataUnsafe?.user?.id?.toString() as string;
+  const userName = `${webApp?.initDataUnsafe?.user?.first_name} ${webApp?.initDataUnsafe?.user?.last_name}`;
+  const [loggedUserData, setLoggedUserData] = useState<UserProfile | null>(null);
+  const {
+    data: userProfileData,
+    isFetched: isUserProfileFetched,
+    isError: isUserProfileFetchError,
+    refetch: refetchUserProfile,
+  } = useGetUserProfile(telegramId, {
+    query: {
+      enabled: false,
+      retry: false,
+    },
   });
-  const [isAppVisible, setIsAppVisible] = useState(false);
+
+  const { mutate: createUser } = useCreateUser({
+    mutation: {
+      onSuccess: (userData) => {
+        setLoggedUserData(userData);
+      },
+    },
+  });
 
   useEffect(() => {
     if (webApp) {
-      void refetch();
-      setIsAppVisible(true);
+      void refetchUserProfile();
     }
   }, [webApp]);
 
-  return (
-    <div>
-      {isLoading || !isAppVisible ? <h1 className="font-bold text-3xl">LOADING</h1> : children}
-    </div>
-  );
+  useEffect(() => {
+    console.log(userProfileData, isUserProfileFetched);
+    if (!isUserProfileFetched && !isUserProfileFetchError) return;
+
+    if (userProfileData) {
+      setLoggedUserData(userProfileData);
+    } else {
+      createUser({ data: { telegramId, name: userName } });
+    }
+  }, [isUserProfileFetched, userProfileData]);
+
+  return <AuthContext.Provider value={{ loggedUserData }}>{children}</AuthContext.Provider>;
+};
+
+export const useAuth = (): AuthContext => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a AuthProvider');
+  }
+  return context;
 };

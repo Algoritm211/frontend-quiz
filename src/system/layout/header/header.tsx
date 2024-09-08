@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@/auth';
 import { useHapticFeedback } from '@/telegram-web-app/hooks';
 import Link from 'next/link';
 import React from 'react';
@@ -8,6 +9,7 @@ import { Icon } from '@/shared/components';
 
 export const Header = () => {
   const { impactOccurred } = useHapticFeedback();
+  const { loggedUserData } = useAuth();
 
   return (
     <div className="navbar shadow bg-base-100">
@@ -27,7 +29,7 @@ export const Header = () => {
       </div>
       <div className="navbar-end">
         <Link
-          href="/profile/some_id"
+          href={`/profile/${loggedUserData?.telegramId}`}
           onClick={() => impactOccurred('medium')}
           className="btn btn-ghost btn-circle"
         >
