@@ -36,3 +36,9 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .progress-primary::-webkit-progress-value {
+    @apply bg-telegram-button;
+  }
+}
