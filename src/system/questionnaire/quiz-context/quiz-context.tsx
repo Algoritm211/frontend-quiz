@@ -10,6 +10,7 @@ import { ExtendedQuestion } from '@/system/questionnaire/types';
 interface QuizContextType {
   currentQuestion: ExtendedQuestion | null;
   currentQuestionIndex: number;
+  totalQuestions: number;
   goToNextQuestion: () => void;
   goToPreviousQuestion: () => void;
   setQuestions: (questions: ExtendedQuestion[]) => void;
@@ -65,6 +66,7 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
         goToPreviousQuestion,
         setQuestions,
         markQuestionAsAnswered,
+        totalQuestions: questions.length,
       }}
     >
       {children}

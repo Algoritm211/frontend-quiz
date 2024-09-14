@@ -57,4 +57,28 @@ console.log(freddie.colorChange('orange'));
     explanation: `The \`colorChange\` function is static. Static methods are designed to live only on the constructor in which they are created, and cannot be passed down to any children or called upon class instances. Since \`freddie\` is an instance of class Chameleon, the function cannot be called upon it. A \`TypeError\` is thrown.
     `,
   },
+  {
+    _id: 'questions-1-id-3',
+    text: 'What`s the output',
+    codeSnippet: `
+\`\`\`js 
+function sum(a, b) {
+  return a + b;
+}
+
+sum(1, '2');  
+\`\`\` 
+    `,
+    options: [
+      { _id: 'questions-1-id-3-opt-id-1', text: 'NaN', isCorrect: false },
+      { _id: 'questions-1-id-3-opt-id-2', text: 'TypeError', isCorrect: false },
+      { _id: 'questions-1-id-3-opt-id-3', text: '"12"', isCorrect: false },
+      { _id: 'questions-1-id-3-opt-id-4', text: '3', isCorrect: true },
+    ],
+    explanation: `
+JavaScript is a **dynamically typed language**: we don't specify what types certain variables are. Values can automatically be converted into another type without you knowing, which is called implicit type coercion. Coercion is converting from one type into another.
+
+In this example, JavaScript converts the number 1 into a string, in order for the function to make sense and return a value. During the addition of a numeric type (1) and a string type ('2'), the number is treated as a string. We can concatenate strings like "Hello" + "World", so what's happening here is "1" + "2" which returns "12". 
+    `,
+  },
 ];

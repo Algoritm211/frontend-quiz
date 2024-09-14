@@ -15,6 +15,7 @@ export const Question = () => {
     goToNextQuestion,
     goToPreviousQuestion,
     markQuestionAsAnswered,
+    totalQuestions,
   } = useQuiz();
 
   if (!currentQuestion) {
@@ -55,6 +56,8 @@ export const Question = () => {
       />
 
       <SwitchQuestionPanel
+        totalQuestions={totalQuestions}
+        currentQuestionIndex={currentQuestionIndex}
         goToNextQuestion={goToNextQuestion}
         goToPreviousQuestion={goToPreviousQuestion}
       />
