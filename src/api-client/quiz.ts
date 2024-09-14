@@ -20,6 +20,7 @@ import { customInstance } from './fetch-instance';
 import type {
   AnswerResult,
   AnswerSubmission,
+  NewQuizForUser,
   NewUser,
   Question,
   Quiz,
@@ -457,4 +458,137 @@ export const useGetUserResults = <
   query.queryKey = queryOptions.queryKey;
 
   return query;
+};
+
+/**
+ * @summary Add new quiz to user's profile
+ */
+export const getUsersUserIdAddQuiz = (userId: string, newQuizForUser: NewQuizForUser) => {
+  return customInstance<UserProfile>({
+    url: `/users/${userId}/add-quiz`,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: newQuizForUser,
+  });
+};
+
+export const getGetUsersUserIdAddQuizMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>,
+    TError,
+    { userId: string; data: NewQuizForUser },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>,
+  TError,
+  { userId: string; data: NewQuizForUser },
+  TContext
+> => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>,
+    { userId: string; data: NewQuizForUser }
+  > = (props) => {
+    const { userId, data } = props ?? {};
+
+    return getUsersUserIdAddQuiz(userId, data);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type GetUsersUserIdAddQuizMutationResult = NonNullable<
+  Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>
+>;
+export type GetUsersUserIdAddQuizMutationBody = NewQuizForUser;
+export type GetUsersUserIdAddQuizMutationError = unknown;
+
+/**
+ * @summary Add new quiz to user's profile
+ */
+export const useGetUsersUserIdAddQuiz = <TError = unknown, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>,
+    TError,
+    { userId: string; data: NewQuizForUser },
+    TContext
+  >;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof getUsersUserIdAddQuiz>>,
+  TError,
+  { userId: string; data: NewQuizForUser },
+  TContext
+> => {
+  const mutationOptions = getGetUsersUserIdAddQuizMutationOptions(options);
+
+  return useMutation(mutationOptions);
+};
+
+/**
+ * @summary Add new answer to the quiz
+ */
+export const postUsersUserIdAddQuizAnswer = (userId: string) => {
+  return customInstance<UserProfile>({ url: `/users/${userId}/add-quiz-answer`, method: 'POST' });
+};
+
+export const getPostUsersUserIdAddQuizAnswerMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>,
+    TError,
+    { userId: string },
+    TContext
+  >;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>,
+  TError,
+  { userId: string },
+  TContext
+> => {
+  const { mutation: mutationOptions } = options ?? {};
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>,
+    { userId: string }
+  > = (props) => {
+    const { userId } = props ?? {};
+
+    return postUsersUserIdAddQuizAnswer(userId);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type PostUsersUserIdAddQuizAnswerMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>
+>;
+
+export type PostUsersUserIdAddQuizAnswerMutationError = unknown;
+
+/**
+ * @summary Add new answer to the quiz
+ */
+export const usePostUsersUserIdAddQuizAnswer = <TError = unknown, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>,
+    TError,
+    { userId: string },
+    TContext
+  >;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postUsersUserIdAddQuizAnswer>>,
+  TError,
+  { userId: string },
+  TContext
+> => {
+  const mutationOptions = getPostUsersUserIdAddQuizAnswerMutationOptions(options);
+
+  return useMutation(mutationOptions);
 };

@@ -171,6 +171,53 @@ paths:
           description: User not found
         '500':
           description: Server error
+  '/users/{userId}/add-quiz':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    post:
+      summary: Add new quiz to user's profile
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/UserProfile'
+      operationId: get-users-userId-add-quiz
+      x-stoplight:
+        id: j8898t3n7j21m
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewQuizForUser'
+  '/users/{userId}/add-quiz-answer':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    post:
+      summary: Add new answer to the quiz
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/UserProfile'
+      operationId: post-users-userId-add-quiz-answer
+      x-stoplight:
+        id: pm3306bhqqokx
 components:
   schemas:
     Quiz:
@@ -350,3 +397,25 @@ components:
           type: boolean
         title:
           type: string
+    NewQuizForUser:
+      title: NewQuizForUser
+      x-stoplight:
+        id: krzexpb1f4ja0
+      type: object
+      required:
+        - quizId
+        - questionId
+        - usersAnswerId
+      properties:
+        quizId:
+          type: string
+          x-stoplight:
+            id: j0gydtu5bxj22
+        questionId:
+          type: string
+          x-stoplight:
+            id: 8fw958ft9wjt9
+        usersAnswerId:
+          type: string
+          x-stoplight:
+            id: fd60ubzr3qy1b
