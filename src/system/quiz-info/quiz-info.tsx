@@ -1,17 +1,43 @@
 'use client';
 
-import { useGetQuizById } from '@/api-client';
+import {
+  getGetUserProfileQueryKey,
+  useGetQuizById,
+  usePostAddQuizToUsersProfile,
+} from '@/api-client';
+import { useAuth } from '@/auth';
 import { BackButton, MainButton } from '@/telegram-web-app/components';
 import { useHapticFeedback } from '@/telegram-web-app/hooks';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next-nprogress-bar';
 import { useParams } from 'next/navigation';
 import React from 'react';
 
 export const QuizInfo = () => {
   const router = useRouter();
-  const { id } = useParams<{ id: string }>();
+  const { id: quizId } = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const { loggedUserData } = useAuth();
   const { impactOccurred } = useHapticFeedback();
-  const { data: quizDetails } = useGetQuizById(id);
+  const { data: quizDetails } = useGetQuizById(quizId);
+  const { mutate: addQuizToUsersProfile, isPending: isAddingQuizToUsersProfile } =
+    usePostAddQuizToUsersProfile({
+      // TODO extract to a separate function
+      mutation: {
+        onSuccess: (updatedUserProfile) => {
+          queryClient.setQueryData(
+            getGetUserProfileQueryKey(loggedUserData?.telegramId as string),
+            updatedUserProfile
+          );
+          void router.push(`/quiz/${quizDetails?._id}/questions`);
+        },
+      },
+    });
+
+  const isQuizWasStartedByUser =
+    loggedUserData?.completedQuizzes.findIndex((completedQuiz) => {
+      return completedQuiz.quizId === quizId;
+    }) !== -1;
 
   const routeBack = () => {
     impactOccurred('medium');
@@ -20,8 +46,16 @@ export const QuizInfo = () => {
 
   const onStartQuiz = () => {
     impactOccurred('heavy');
-    void router.push(`/quiz/${quizDetails?._id}/questions`);
+    addQuizToUsersProfile({
+      userId: loggedUserData?.telegramId as string,
+      data: { quizId: quizId },
+    });
   };
+
+  const onContinueQuiz = () => {
+    impactOccurred('heavy');
+    void router.push(`/quiz/${quizDetails?._id}/questions`);
+  }
 
   return (
     <div>
@@ -39,7 +73,11 @@ export const QuizInfo = () => {
       </div>
       <h2 className="text-xl font-bold">Description</h2>
       <p>{quizDetails?.description}</p>
-      <MainButton text="Start Quiz" onClick={onStartQuiz} />
+      <MainButton
+        text={isQuizWasStartedByUser ? 'Continue Quiz' : 'Start Quiz'}
+        progress={isAddingQuizToUsersProfile}
+        onClick={isQuizWasStartedByUser ? onContinueQuiz : onStartQuiz}
+      />
       <BackButton onClick={routeBack} />
     </div>
   );

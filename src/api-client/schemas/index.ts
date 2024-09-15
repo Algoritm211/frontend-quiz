@@ -9,6 +9,7 @@ export * from './answerOption';
 export * from './answerResult';
 export * from './answerSubmission';
 export * from './newQuizForUser';
+export * from './newQuizQuestionAnswerForUser';
 export * from './newUser';
 export * from './question';
 export * from './quiz';

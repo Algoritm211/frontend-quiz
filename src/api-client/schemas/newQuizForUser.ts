@@ -6,7 +6,5 @@
  */
 
 export interface NewQuizForUser {
-  questionId: string;
   quizId: string;
-  usersAnswerId: string;
 }

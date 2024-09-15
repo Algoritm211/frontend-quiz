@@ -39,7 +39,7 @@ export const UserProfile = () => {
       const totalQuestions = quiz.totalQuestions;
 
       const isCompleted = quiz.answers.length === quiz.totalQuestions;
-      const progressPercentage = Number(((quiz.answers.length * 100) / totalQuestions).toFixed(1));
+      const progressPercentage = Number(((quiz.answers.length * 100) / totalQuestions).toFixed(1)) || 0;
 
       return {
         _id: quiz.quizId?.toString() as string,
