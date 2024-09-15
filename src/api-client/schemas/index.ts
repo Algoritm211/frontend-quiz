@@ -12,6 +12,7 @@ export * from './newQuizForUser';
 export * from './newUser';
 export * from './question';
 export * from './quiz';
+export * from './quizAnswerResult';
 export * from './quizDetails';
 export * from './quizResult';
 export * from './userProfile';

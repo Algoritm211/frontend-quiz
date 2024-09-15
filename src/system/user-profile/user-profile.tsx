@@ -34,6 +34,22 @@ export const UserProfile = () => {
     return <div>Loading...</div>;
   }
 
+  const completedQuizzes =
+    userProfile.completedQuizzes.map((quiz) => {
+      const totalQuestions = quiz.totalQuestions;
+
+      const isCompleted = quiz.answers.length === quiz.totalQuestions;
+      const progressPercentage = Number(((quiz.answers.length * 100) / totalQuestions).toFixed(1));
+
+      return {
+        _id: quiz.quizId?.toString() as string,
+        isCompleted,
+        totalQuestions,
+        progressPercentage,
+        title: quiz.quizTitle,
+      };
+    }) || [];
+
   return (
     <React.Fragment>
       <div className="flex flex-col justify-center items-center flex-wrap mt-6 gap-4">
@@ -56,7 +72,7 @@ export const UserProfile = () => {
         <h2 className="font-bold">Passed quizzes</h2>
         <hr className="my-2 bg-telegram-section-separator" />
         <div className="flex flex-col gap-4">
-          {userProfile.completedQuizzes.map((quiz) => {
+          {completedQuizzes.map((quiz) => {
             return (
               <PassedQuizCard
                 key={quiz._id}

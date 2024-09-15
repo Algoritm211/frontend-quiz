@@ -68,42 +68,6 @@ paths:
           description: Quiz not found
         '500':
           description: Server error
-  '/quizzes/{quizId}/questions/{questionId}/answer':
-    post:
-      summary: Submit an answer for a specific question
-      operationId: submitAnswer
-      parameters:
-        - name: quizId
-          in: path
-          required: true
-          description: The unique identifier of the quiz
-          schema:
-            type: string
-        - name: questionId
-          in: path
-          required: true
-          description: The unique identifier of the question
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AnswerSubmission'
-      responses:
-        '200':
-          description: 'The result of the answer submission, indicating correctness and providing an explanation.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AnswerResult'
-        '400':
-          description: Invalid request body
-        '404':
-          description: Quiz or question not found
-        '500':
-          description: Server error
   /users:
     post:
       summary: Create a new user
@@ -314,26 +278,6 @@ components:
         isCorrect:
           type: boolean
           description: Indicates whether this option is the correct answer. This should only be revealed on the frontend after the user answers.
-    AnswerSubmission:
-      type: object
-      required:
-        - answerId
-      properties:
-        answerId:
-          type: string
-          description: The unique identifier of the selected answer option
-    AnswerResult:
-      type: object
-      required:
-        - isCorrect
-        - explanation
-      properties:
-        isCorrect:
-          type: boolean
-          description: Indicates if the submitted answer is correct
-        explanation:
-          type: string
-          description: An explanation of why the answer is correct or incorrect
     NewUser:
       type: object
       required:
@@ -379,24 +323,34 @@ components:
       type: object
       required:
         - _id
-        - progressPercentage
+        - quizId
+        - quizTitle
         - totalQuestions
-        - isCompleted
-        - title
+        - answers
       properties:
         _id:
           type: string
           description: The unique identifier of the quiz
-        progressPercentage:
-          type: number
-          description: The percentage of correct answers
-        totalQuestions:
-          type: integer
-          description: The total number of questions in the quiz
-        isCompleted:
-          type: boolean
-        title:
+        quizId:
           type: string
+          description: The percentage of correct answers
+          x-stoplight:
+            id: 6fygsqopa3y2c
+        quizTitle:
+          type: string
+          description: The total number of questions in the quiz
+          x-stoplight:
+            id: 1lx8l6sncphnd
+        totalQuestions:
+          type: number
+          x-stoplight:
+            id: 1uugt2dooy41j
+        answers:
+          type: array
+          x-stoplight:
+            id: y2f0n7caxkvhz
+          items:
+            $ref: '#/components/schemas/QuizAnswerResult'
     NewQuizForUser:
       title: NewQuizForUser
       x-stoplight:
@@ -419,3 +373,40 @@ components:
           type: string
           x-stoplight:
             id: fd60ubzr3qy1b
+    QuizAnswerResult:
+      title: QuizAnswerResult
+      x-stoplight:
+        id: lxmrrgjzgl73h
+      type: object
+      required:
+        - _id
+        - questionId
+        - questionText
+        - isCorrect
+        - correctAnswer
+        - userAnswer
+      properties:
+        _id:
+          type: string
+          x-stoplight:
+            id: 874utegarhcwy
+        questionId:
+          type: string
+          x-stoplight:
+            id: l5vl3wgxtot4q
+        questionText:
+          type: string
+          x-stoplight:
+            id: wq93jrp0dgsdg
+        isCorrect:
+          type: boolean
+          x-stoplight:
+            id: q8yncfl4eiyz4
+        correctAnswer:
+          type: string
+          x-stoplight:
+            id: dqkj06t4ygqi2
+        userAnswer:
+          type: string
+          x-stoplight:
+            id: 1dc7lsuk9sp0r

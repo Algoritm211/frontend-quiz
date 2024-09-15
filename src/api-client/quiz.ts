@@ -17,16 +17,7 @@ import type {
 } from '@tanstack/react-query';
 
 import { customInstance } from './fetch-instance';
-import type {
-  AnswerResult,
-  AnswerSubmission,
-  NewQuizForUser,
-  NewUser,
-  Question,
-  Quiz,
-  QuizResult,
-  UserProfile,
-} from './schemas';
+import type { NewQuizForUser, NewUser, Question, Quiz, QuizResult, UserProfile } from './schemas';
 
 /**
  * @summary Retrieve a list of quizzes
@@ -203,74 +194,6 @@ export const useGetQuestionsByQuizId = <
   query.queryKey = queryOptions.queryKey;
 
   return query;
-};
-
-/**
- * @summary Submit an answer for a specific question
- */
-export const submitAnswer = (
-  quizId: string,
-  questionId: string,
-  answerSubmission: AnswerSubmission
-) => {
-  return customInstance<AnswerResult>({
-    url: `/quizzes/${quizId}/questions/${questionId}/answer`,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    data: answerSubmission,
-  });
-};
-
-export const getSubmitAnswerMutationOptions = <TError = void, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitAnswer>>,
-    TError,
-    { quizId: string; questionId: string; data: AnswerSubmission },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof submitAnswer>>,
-  TError,
-  { quizId: string; questionId: string; data: AnswerSubmission },
-  TContext
-> => {
-  const { mutation: mutationOptions } = options ?? {};
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof submitAnswer>>,
-    { quizId: string; questionId: string; data: AnswerSubmission }
-  > = (props) => {
-    const { quizId, questionId, data } = props ?? {};
-
-    return submitAnswer(quizId, questionId, data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SubmitAnswerMutationResult = NonNullable<Awaited<ReturnType<typeof submitAnswer>>>;
-export type SubmitAnswerMutationBody = AnswerSubmission;
-export type SubmitAnswerMutationError = void;
-
-/**
- * @summary Submit an answer for a specific question
- */
-export const useSubmitAnswer = <TError = void, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitAnswer>>,
-    TError,
-    { quizId: string; questionId: string; data: AnswerSubmission },
-    TContext
-  >;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof submitAnswer>>,
-  TError,
-  { quizId: string; questionId: string; data: AnswerSubmission },
-  TContext
-> => {
-  const mutationOptions = getSubmitAnswerMutationOptions(options);
-
-  return useMutation(mutationOptions);
 };
 
 /**

@@ -7,18 +7,20 @@ export const users1: UserProfile = {
   joinedDate: '2012-10-15T21:26:17Z',
   completedQuizzes: [
     {
-      _id: 'some-id-1',
-      title: 'JS code challenge',
-      isCompleted: false,
-      progressPercentage: 68,
-      totalQuestions: 2,
-    },
-    {
-      _id: 'some-id-2',
-      title: 'Advanced topics in Node.js.',
-      isCompleted: true,
-      progressPercentage: 100,
-      totalQuestions: 1,
+      _id: 'some-answer-id-1',
+      quizId: 'some-id-1',
+      quizTitle: 'JS code challenge',
+      totalQuestions: 3,
+      answers: [
+        {
+          _id: 'some-answer-id-1-question-1',
+          questionId: 'questions-1-id-1',
+          isCorrect: true,
+          questionText: 'What is the output of the following code?',
+          correctAnswer: '2',
+          userAnswer: '2',
+        },
+      ],
     },
   ],
 };
