@@ -55,7 +55,7 @@ export const QuizInfo = () => {
   const onContinueQuiz = () => {
     impactOccurred('heavy');
     void router.push(`/quiz/${quizDetails?._id}/questions`);
-  }
+  };
 
   return (
     <div>

@@ -1,10 +1,9 @@
-import {users1} from "@/mocks/users/users-1";
-import {quiz2} from "@/mocks/quizzes/quiz-2";
-
+import { quiz2 } from '@/mocks/quizzes/quiz-2';
+import { users1 } from '@/mocks/users/users-1';
 
 export async function POST(request: Request, { params }: { params: { id: string } }) {
-  const requestBody = await request.json()
-  const {quizId} = requestBody;
+  const requestBody = await request.json();
+  const { quizId } = requestBody;
   console.log('REQUEST BODY', requestBody, 'QUIZ ID', quizId);
 
   const newUserQuiz = {
@@ -13,13 +12,10 @@ export async function POST(request: Request, { params }: { params: { id: string 
     quizTitle: quiz2.title,
     totalQuestions: quiz2.questions?.length,
     answers: [],
-  }
+  };
 
   return Response.json({
     ...users1,
-    completedQuizzes: [
-      ...users1.completedQuizzes,
-      newUserQuiz,
-    ]
+    completedQuizzes: [...users1.completedQuizzes, newUserQuiz],
   });
 }

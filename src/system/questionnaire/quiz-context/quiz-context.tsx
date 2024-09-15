@@ -1,6 +1,7 @@
 'use client';
 
 import { useGetQuestionsByQuizId } from '@/api-client';
+import { useAuth } from '@/auth';
 import { useParams } from 'next/navigation';
 import React, { createContext, useContext, useState, useEffect, PropsWithChildren } from 'react';
 
@@ -21,16 +22,30 @@ const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
 export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { id: quizId } = useParams<{ id: string }>();
+  const { loggedUserData } = useAuth();
   const [questions, setQuestions] = useState<ExtendedQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const { data: fetchedQuestions, isLoading, error } = useGetQuestionsByQuizId(quizId);
 
+  const usersCompletedQuestions =
+    loggedUserData?.completedQuizzes.find((completedQuiz) => {
+      return completedQuiz.quizId === quizId;
+    })?.answers || [];
+
   useEffect(() => {
     if (fetchedQuestions) {
-      setQuestions(mapToExtendedQuestions(fetchedQuestions));
+      setQuestions(mapToExtendedQuestions(fetchedQuestions, usersCompletedQuestions));
       setCurrentQuestionIndex(0);
     }
   }, [fetchedQuestions]);
+
+  useEffect(() => {
+    if (loggedUserData && fetchedQuestions) {
+      setQuestions(mapToExtendedQuestions(fetchedQuestions, usersCompletedQuestions));
+    }
+  }, [loggedUserData]);
+
+  useEffect(() => {}, []);
 
   const goToNextQuestion = () => {
     setCurrentQuestionIndex((prevIndex) =>
