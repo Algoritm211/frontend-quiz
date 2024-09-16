@@ -1,5 +1,5 @@
 import { useQuiz } from '@/system';
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   QuestionExplanation,
@@ -17,6 +17,7 @@ export const Question = () => {
     markQuestionAsAnswered,
     totalQuestions,
   } = useQuiz();
+  const explanationRef = useRef<HTMLDivElement>(null);
 
   if (!currentQuestion) {
     return <div>no question</div>;
@@ -26,6 +27,12 @@ export const Question = () => {
     if (!currentQuestion.isAnswered) {
       markQuestionAsAnswered(currentQuestion._id, optionId);
     }
+
+    setTimeout(() => {
+      if (explanationRef.current) {
+        explanationRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   return (
@@ -50,10 +57,11 @@ export const Question = () => {
         isAnswered={currentQuestion?.isAnswered}
       />
 
-      <QuestionExplanation
-        isAnswered={currentQuestion.isAnswered}
-        explanation={currentQuestion.explanation}
-      />
+      {currentQuestion.isAnswered && (
+        <QuestionExplanation explanation={currentQuestion.explanation} />
+      )}
+
+      <div ref={explanationRef}></div>
 
       <SwitchQuestionPanel
         totalQuestions={totalQuestions}

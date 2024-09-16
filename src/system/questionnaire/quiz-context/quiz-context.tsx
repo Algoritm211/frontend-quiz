@@ -8,6 +8,8 @@ import React, { createContext, useContext, useState, useEffect, PropsWithChildre
 import { mapToExtendedQuestions } from '@/system/questionnaire/quiz-context/util/map-to-extended-questions';
 import { ExtendedQuestion } from '@/system/questionnaire/types';
 
+import { scrollToTop } from '@/shared/utils';
+
 interface QuizContextType {
   currentQuestion: ExtendedQuestion | null;
   currentQuestionIndex: number;
@@ -40,12 +42,14 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [fetchedQuestions]);
 
   useEffect(() => {
+    scrollToTop();
+  }, [currentQuestionIndex]);
+
+  useEffect(() => {
     if (loggedUserData && fetchedQuestions) {
       setQuestions(mapToExtendedQuestions(fetchedQuestions, usersCompletedQuestions));
     }
   }, [loggedUserData]);
-
-  useEffect(() => {}, []);
 
   const goToNextQuestion = () => {
     setCurrentQuestionIndex((prevIndex) =>
