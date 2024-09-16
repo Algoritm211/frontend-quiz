@@ -2,7 +2,7 @@
 
 import { useGetUserProfile } from '@/api-client';
 import { BackButton } from '@/telegram-web-app/components';
-import { useHapticFeedback } from '@/telegram-web-app/hooks';
+import { useHapticFeedback, useTgWebApp } from '@/telegram-web-app/hooks';
 import { useRouter } from 'next-nprogress-bar';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -14,6 +14,7 @@ export const UserProfile = () => {
   const { data: userProfile } = useGetUserProfile(userId);
   const router = useRouter();
   const { impactOccurred } = useHapticFeedback();
+  const webApp = useTgWebApp();
 
   const routeBack = () => {
     impactOccurred('medium');
@@ -54,17 +55,12 @@ export const UserProfile = () => {
   return (
     <React.Fragment>
       <div className="flex flex-col justify-center items-center flex-wrap mt-6 gap-4">
-        <div className="avatar">
-          <div className="w-40 rounded-full">
-            <img src="/user/mock-user-photo.jpeg" alt="Photo of the user" />
-          </div>
-        </div>
         <div className="flex-grow text-center">
           <h1 className="text-3xl font-bold" suppressHydrationWarning>
             {userProfile.name}
           </h1>
           <p className="text-telegram-subtitle-text py-2" suppressHydrationWarning>
-            Joined {new Date(userProfile.joinedDate).toLocaleDateString()}
+            Joined {new Date(userProfile.createdAt).toLocaleDateString()}
           </p>
         </div>
       </div>

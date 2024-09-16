@@ -4,7 +4,7 @@ export const users1: UserProfile = {
   _id: 'some-user-1',
   telegramId: '402954445',
   name: 'Alexey Horbunov',
-  joinedDate: '2012-10-15T21:26:17Z',
+  createdAt: '2012-10-15T21:26:17Z',
   completedQuizzes: [
     {
       _id: 'some-answer-id-1',

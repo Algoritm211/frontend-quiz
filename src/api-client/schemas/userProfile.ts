@@ -13,7 +13,7 @@ export interface UserProfile {
   /** A list of quizzes completed by the user */
   completedQuizzes: QuizResult[];
   /** The date and time the user joined */
-  joinedDate: string;
+  createdAt: string;
   /** The name of the user */
   name: string;
   telegramId: string;

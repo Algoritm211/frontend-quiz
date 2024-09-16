@@ -303,7 +303,7 @@ components:
         - _id
         - telegramId
         - name
-        - joinedDate
+        - createdAt
         - completedQuizzes
       properties:
         _id:
@@ -316,10 +316,12 @@ components:
         name:
           type: string
           description: The name of the user
-        joinedDate:
+        createdAt:
           type: string
           format: date-time
           description: The date and time the user joined
+          x-stoplight:
+            id: b2djww1afchbl
         completedQuizzes:
           type: array
           description: A list of quizzes completed by the user
