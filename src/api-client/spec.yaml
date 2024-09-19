@@ -297,6 +297,7 @@ components:
           type: string
           x-stoplight:
             id: 5haxb7b4ralyc
+      title: ''
     UserProfile:
       type: object
       required:
@@ -394,6 +395,8 @@ components:
         - isCorrect
         - correctAnswer
         - userAnswer
+        - correctAnswerId
+        - userAnswerId
       properties:
         _id:
           type: string
@@ -419,6 +422,14 @@ components:
           type: string
           x-stoplight:
             id: 1dc7lsuk9sp0r
+        correctAnswerId:
+          type: string
+          x-stoplight:
+            id: in4ocdp8m85sb
+        userAnswerId:
+          type: string
+          x-stoplight:
+            id: 9ukkne55qdnxy
     NewQuizForUser:
       title: newQuizForUser
       x-stoplight:

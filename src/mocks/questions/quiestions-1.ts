@@ -30,7 +30,7 @@ Variables with the \`let\` keyword (and \`const\`) are hoisted, but unlike \`var
   },
   {
     _id: 'questions-1-id-2',
-    text: 'Which of the following is a JavaScript data type?',
+    text: "What's the output?",
     codeSnippet: `
 \`\`\`js
 class Chameleon {

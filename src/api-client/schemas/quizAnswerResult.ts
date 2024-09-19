@@ -8,8 +8,10 @@
 export interface QuizAnswerResult {
   _id: string;
   correctAnswer: string;
+  correctAnswerId: string;
   isCorrect: boolean;
   questionId: string;
   questionText: string;
   userAnswer: string;
+  userAnswerId: string;
 }

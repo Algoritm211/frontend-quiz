@@ -19,6 +19,8 @@ export const users1: UserProfile = {
           questionText: 'What is the output of the following code?',
           correctAnswer: '2',
           userAnswer: '2',
+          correctAnswerId: 'questions-1-id-1-opt-id-4',
+          userAnswerId: 'questions-1-id-1-opt-id-1',
         },
       ],
     },
