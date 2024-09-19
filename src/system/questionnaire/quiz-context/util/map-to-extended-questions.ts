@@ -8,12 +8,12 @@ export const mapToExtendedQuestions = (
 ): ExtendedQuestion[] => {
   const normalizedAnswers = completedQuestionsByUser.reduce((acc, answer) => {
     acc.set(answer.questionId, answer);
-    return acc
-  }, new Map<string, QuizAnswerResult>())
+    return acc;
+  }, new Map<string, QuizAnswerResult>());
 
   return questions.map((question) => ({
     ...question,
     isAnswered: normalizedAnswers.has(question._id),
-    selectedAnswerOptionId: normalizedAnswers.get(question._id)?.userAnswerId
+    selectedAnswerOptionId: normalizedAnswers.get(question._id)?.userAnswerId,
   }));
 };

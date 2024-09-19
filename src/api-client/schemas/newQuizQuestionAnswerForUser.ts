@@ -8,5 +8,5 @@
 export interface NewQuizQuestionAnswerForUser {
   questionId: string;
   quizId: string;
-  usersAnswerId: string;
+  userAnswerId: string;
 }

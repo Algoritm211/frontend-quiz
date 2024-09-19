@@ -187,7 +187,7 @@ paths:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/NewQuizForUser'
+              $ref: '#/components/schemas/NewQuizQuestionAnswerForUser'
 components:
   schemas:
     Quiz:
@@ -368,7 +368,7 @@ components:
       required:
         - quizId
         - questionId
-        - usersAnswerId
+        - userAnswerId
       properties:
         quizId:
           type: string
@@ -378,11 +378,10 @@ components:
           type: string
           x-stoplight:
             id: 8fw958ft9wjt9
-        usersAnswerId:
+        userAnswerId:
           type: string
           x-stoplight:
             id: fd60ubzr3qy1b
-      description: ''
     QuizAnswerResult:
       title: QuizAnswerResult
       x-stoplight:
