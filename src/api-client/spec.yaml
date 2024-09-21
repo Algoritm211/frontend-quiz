@@ -368,7 +368,7 @@ components:
       required:
         - quizId
         - questionId
-        - userAnswerId
+        - usersAnswerId
       properties:
         quizId:
           type: string
@@ -378,10 +378,11 @@ components:
           type: string
           x-stoplight:
             id: 8fw958ft9wjt9
-        userAnswerId:
+        usersAnswerId:
           type: string
           x-stoplight:
             id: fd60ubzr3qy1b
+      description: ''
     QuizAnswerResult:
       title: QuizAnswerResult
       x-stoplight:

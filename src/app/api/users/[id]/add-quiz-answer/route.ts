@@ -3,7 +3,10 @@ import { QuizResult } from '@/api-client/schemas';
 import { questions1 } from '@/mocks/questions/quiestions-1';
 import { users1 } from '@/mocks/users/users-1';
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export async function POST(request: Request, { params }: { params: { id: string } }) {
+  await sleep(2000);
   const { id: userId } = params;
   const requestBody = await request.json();
   const { questionId, usersAnswerId } = requestBody;

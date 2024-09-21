@@ -1,14 +1,9 @@
 'use client';
 
-import {
-  getGetUserProfileQueryKey,
-  useGetQuizById,
-  usePostAddQuizToUsersProfile,
-} from '@/api-client';
+import { useAddQuizToUserProfile, useGetQuizById } from '@/api-client';
 import { useAuth } from '@/auth';
 import { BackButton, MainButton } from '@/telegram-web-app/components';
 import { useHapticFeedback } from '@/telegram-web-app/hooks';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next-nprogress-bar';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -16,23 +11,11 @@ import React from 'react';
 export const QuizInfo = () => {
   const router = useRouter();
   const { id: quizId } = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const { loggedUserData } = useAuth();
   const { impactOccurred } = useHapticFeedback();
   const { data: quizDetails } = useGetQuizById(quizId);
   const { mutate: addQuizToUsersProfile, isPending: isAddingQuizToUsersProfile } =
-    usePostAddQuizToUsersProfile({
-      // TODO extract to a separate function
-      mutation: {
-        onSuccess: (updatedUserProfile) => {
-          queryClient.setQueryData(
-            getGetUserProfileQueryKey(loggedUserData?.telegramId as string),
-            updatedUserProfile
-          );
-          void router.push(`/quiz/${quizDetails?._id}/questions`);
-        },
-      },
-    });
+    useAddQuizToUserProfile(quizId);
 
   const isQuizWasStartedByUser =
     loggedUserData?.completedQuizzes.findIndex((completedQuiz) => {

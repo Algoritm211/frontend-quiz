@@ -1,9 +1,18 @@
 'use client';
 
 import { useGetQuestionsByQuizId } from '@/api-client';
+import { useAddQuizAnswer } from '@/api-client/custom-hooks/add-quiz-answer';
 import { useAuth } from '@/auth';
 import { useParams } from 'next/navigation';
-import React, { createContext, useContext, useState, useEffect, PropsWithChildren } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  PropsWithChildren,
+  useRef,
+  Ref,
+} from 'react';
 
 import { mapToExtendedQuestions } from '@/system/questionnaire/quiz-context/util/map-to-extended-questions';
 import { ExtendedQuestion } from '@/system/questionnaire/types';
@@ -16,6 +25,8 @@ interface QuizContextType {
   totalQuestions: number;
   goToNextQuestion: () => void;
   goToPreviousQuestion: () => void;
+  isQuestionsLoading: boolean;
+  isSavingAnswer: boolean;
   setQuestions: (questions: ExtendedQuestion[]) => void;
   markQuestionAsAnswered: (questionId: string, optionId: string) => void;
 }
@@ -27,7 +38,11 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { loggedUserData } = useAuth();
   const [questions, setQuestions] = useState<ExtendedQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const { data: fetchedQuestions, isLoading, error } = useGetQuestionsByQuizId(quizId);
+  const explanationRef: React.MutableRefObject<HTMLDivElement | null> =
+    useRef<HTMLDivElement>(null);
+
+  const { data: fetchedQuestions, isLoading: isQuestionsLoading } = useGetQuestionsByQuizId(quizId);
+  const { mutate: addQuizAnswer, isPending: isSavingAnswer } = useAddQuizAnswer();
 
   const usersCompletedQuestions =
     loggedUserData?.completedQuizzes.find((completedQuiz) => {
@@ -62,6 +77,14 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const markQuestionAsAnswered = (questionId: string, optionId: string) => {
+    addQuizAnswer({
+      userId: loggedUserData?.telegramId as string,
+      data: {
+        quizId,
+        questionId,
+        usersAnswerId: optionId,
+      },
+    });
     setQuestions((prevQuestions) => {
       const newQuestions = prevQuestions.map((question) => {
         if (question._id === questionId) {
@@ -81,11 +104,13 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
       value={{
         currentQuestion,
         currentQuestionIndex,
+        isQuestionsLoading,
+        isSavingAnswer,
+        totalQuestions: questions.length,
         goToNextQuestion,
         goToPreviousQuestion,
         setQuestions,
         markQuestionAsAnswered,
-        totalQuestions: questions.length,
       }}
     >
       {children}
