@@ -22,14 +22,10 @@ export const SwitchQuestionPanel: React.FC<Props> = ({
   const isFirstQuestion = currentQuestionIndex === 0;
   const isLastQuestion = currentQuestionIndex + 1 === totalQuestions;
 
-  // if (isSavingAnswer) {
-  //   return <Loader size="xs" loaderTitle='Saving answer...' />
-  // }
-
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg">
       {isSavingAnswer ? (
-        <Loader size="xs" loaderTitle="Saving answer..." />
+        <Loader className="my-4" size="xs" loaderTitle="Saving answer..." />
       ) : (
         <div
           className={clsx(

@@ -85,16 +85,6 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
         usersAnswerId: optionId,
       },
     });
-    setQuestions((prevQuestions) => {
-      const newQuestions = prevQuestions.map((question) => {
-        if (question._id === questionId) {
-          return { ...question, isAnswered: true, selectedAnswerOptionId: optionId };
-        }
-        return question;
-      });
-
-      return newQuestions;
-    });
   };
 
   const currentQuestion = questions.length > 0 ? questions[currentQuestionIndex] : null;

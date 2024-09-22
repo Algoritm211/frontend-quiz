@@ -1,5 +1,7 @@
 import { useQuiz } from '@/system';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+
+import { EXPLANATION_BLOCK_ID } from '@/system/questionnaire/constants/questionnaire';
 
 import { Loader } from '@/shared/components';
 
@@ -21,26 +23,19 @@ export const Question = () => {
     markQuestionAsAnswered,
     totalQuestions,
   } = useQuiz();
-  const explanationRef = useRef<HTMLDivElement>(null);
-
-  if (!currentQuestion) {
-    return <div>no question</div>;
-  }
 
   const onQuestionAnswer = (optionId: string) => {
-    if (!currentQuestion.isAnswered) {
-      markQuestionAsAnswered(currentQuestion._id, optionId);
+    if (!currentQuestion?.isAnswered) {
+      markQuestionAsAnswered(currentQuestion?._id || '', optionId);
     }
-
-    setTimeout(() => {
-      if (explanationRef.current) {
-        explanationRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
   };
 
   if (isQuestionsLoading) {
     return <Loader size="lg" loaderTitle="Loading Questions..." />;
+  }
+
+  if (!currentQuestion) {
+    return <div>no question</div>;
   }
 
   return (
@@ -70,7 +65,7 @@ export const Question = () => {
           <QuestionExplanation explanation={currentQuestion.explanation} />
         )}
 
-        <div ref={explanationRef}></div>
+        <div id={EXPLANATION_BLOCK_ID}></div>
 
         <SwitchQuestionPanel
           isSavingAnswer={isSavingAnswer}
