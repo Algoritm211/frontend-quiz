@@ -4,15 +4,7 @@ import { useGetQuestionsByQuizId } from '@/api-client';
 import { useAddQuizAnswer } from '@/api-client/custom-hooks/add-quiz-answer';
 import { useAuth } from '@/auth';
 import { useParams } from 'next/navigation';
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  PropsWithChildren,
-  useRef,
-  Ref,
-} from 'react';
+import React, { createContext, useContext, useState, useEffect, PropsWithChildren } from 'react';
 
 import { mapToExtendedQuestions } from '@/system/questionnaire/quiz-context/util/map-to-extended-questions';
 import { ExtendedQuestion } from '@/system/questionnaire/types';
@@ -23,6 +15,7 @@ interface QuizContextType {
   currentQuestion: ExtendedQuestion | null;
   currentQuestionIndex: number;
   totalQuestions: number;
+  isQuizCompleted: boolean;
   goToNextQuestion: () => void;
   goToPreviousQuestion: () => void;
   isQuestionsLoading: boolean;
@@ -38,8 +31,6 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { loggedUserData } = useAuth();
   const [questions, setQuestions] = useState<ExtendedQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const explanationRef: React.MutableRefObject<HTMLDivElement | null> =
-    useRef<HTMLDivElement>(null);
 
   const { data: fetchedQuestions, isLoading: isQuestionsLoading } = useGetQuestionsByQuizId(quizId);
   const { mutate: addQuizAnswer, isPending: isSavingAnswer } = useAddQuizAnswer();
@@ -48,6 +39,8 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
     loggedUserData?.completedQuizzes.find((completedQuiz) => {
       return completedQuiz.quizId === quizId;
     })?.answers || [];
+
+  const isQuizCompleted = usersCompletedQuestions?.length === fetchedQuestions?.length;
 
   useEffect(() => {
     if (fetchedQuestions) {
@@ -96,6 +89,7 @@ export const QuizProvider: React.FC<PropsWithChildren> = ({ children }) => {
         currentQuestionIndex,
         isQuestionsLoading,
         isSavingAnswer,
+        isQuizCompleted,
         totalQuestions: questions.length,
         goToNextQuestion,
         goToPreviousQuestion,

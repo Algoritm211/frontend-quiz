@@ -1,4 +1,6 @@
 import { useQuiz } from '@/system';
+import { useRouter } from 'next-nprogress-bar';
+import { useParams } from 'next/navigation';
 import React, { useRef } from 'react';
 
 import { EXPLANATION_BLOCK_ID } from '@/system/questionnaire/constants/questionnaire';
@@ -18,16 +20,23 @@ export const Question = () => {
     currentQuestionIndex,
     isQuestionsLoading,
     isSavingAnswer,
+    isQuizCompleted,
     goToNextQuestion,
     goToPreviousQuestion,
     markQuestionAsAnswered,
     totalQuestions,
   } = useQuiz();
+  const router = useRouter();
+  const { id: quizId } = useParams<{ id: string }>();
 
   const onQuestionAnswer = (optionId: string) => {
     if (!currentQuestion?.isAnswered) {
       markQuestionAsAnswered(currentQuestion?._id || '', optionId);
     }
+  };
+
+  const onFinishQuiz = () => {
+    void router.push(`/quiz/${quizId}/results`);
   };
 
   if (isQuestionsLoading) {
@@ -69,10 +78,12 @@ export const Question = () => {
 
         <SwitchQuestionPanel
           isSavingAnswer={isSavingAnswer}
+          isQuizCompleted={isQuizCompleted}
           totalQuestions={totalQuestions}
           currentQuestionIndex={currentQuestionIndex}
           goToNextQuestion={goToNextQuestion}
           goToPreviousQuestion={goToPreviousQuestion}
+          onFinishQuiz={onFinishQuiz}
         />
       </div>
     </React.Fragment>

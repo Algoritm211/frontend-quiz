@@ -4,6 +4,7 @@ export interface SpritesMap {
     | 'arrow-path-rounded-square'
     | 'arrow-right'
     | 'arrow-up'
+    | 'check-circle'
     | 'empty-icon'
     | 'footer-stub'
     | 'information-circle'
@@ -16,6 +17,7 @@ export const SPRITES_META: {
     | 'arrow-path-rounded-square'
     | 'arrow-right'
     | 'arrow-up'
+    | 'check-circle'
     | 'empty-icon'
     | 'footer-stub'
     | 'information-circle'
@@ -28,6 +30,7 @@ export const SPRITES_META: {
     'arrow-path-rounded-square',
     'arrow-right',
     'arrow-up',
+    'check-circle',
     'empty-icon',
     'footer-stub',
     'information-circle',
