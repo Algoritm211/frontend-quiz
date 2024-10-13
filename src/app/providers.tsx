@@ -48,6 +48,7 @@ export default function Providers({ children }: PropsWithChildren) {
   useEffect(() => {
     webApp?.ready();
     webApp?.expand();
+    webApp?.disableVerticalSwipes();
   }, []);
 
   return (

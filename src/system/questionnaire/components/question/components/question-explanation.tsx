@@ -9,7 +9,7 @@ interface Props {
 
 export const QuestionExplanation: React.FC<Props> = ({ explanation }) => {
   return (
-    <div className="p-4 mb-8 bg-gray-100 text-gray-800 rounded-md">
+    <div className="p-4 mb-8 bg-gray-100 text-gray-800 rounded-md overflow-y-scroll">
       <div className="flex gap-1 items-center">
         <Icon name="information-circle" className="w-5 h-5 text-blue-500 font-bold" />
         <h2 className="text-lg font-semibold">Explanation:</h2>
