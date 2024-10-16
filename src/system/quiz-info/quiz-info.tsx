@@ -8,12 +8,14 @@ import { useRouter } from 'next-nprogress-bar';
 import { useParams } from 'next/navigation';
 import React from 'react';
 
+import { Loader } from '@/shared/components';
+
 export const QuizInfo = () => {
   const router = useRouter();
   const { id: quizId } = useParams<{ id: string }>();
   const { loggedUserData } = useAuth();
   const { impactOccurred } = useHapticFeedback();
-  const { data: quizDetails } = useGetQuizById(quizId);
+  const { data: quizDetails, isLoading: isQuizLoading } = useGetQuizById(quizId);
   const { mutate: addQuizToUsersProfile, isPending: isAddingQuizToUsersProfile } =
     useAddQuizToUserProfile(quizId);
 
@@ -39,6 +41,10 @@ export const QuizInfo = () => {
     impactOccurred('heavy');
     void router.push(`/quiz/${quizDetails?._id}/questions`);
   };
+
+  if (isQuizLoading) {
+    return <Loader size="lg" loaderTitle="Loading Quiz..." />;
+  }
 
   return (
     <div>
